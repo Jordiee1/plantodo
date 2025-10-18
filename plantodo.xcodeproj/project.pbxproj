@@ -29,9 +29,44 @@
 		F45D3C492E9011CB0074D25E /* plantodoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = plantodoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		F4466DEF2EA20E3A009A6B99 /* Exceptions for "plantodo" folder in "plantodoTests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				App/AppIcons/appstore.png,
+				App/AppIcons/Assets.xcassets,
+				App/AppIcons/playstore.png,
+				"Fonts/IBMPlexSansThai-Bold.ttf",
+				"Fonts/IBMPlexSansThai-ExtraLight.ttf",
+				"Fonts/IBMPlexSansThai-Light.ttf",
+				"Fonts/IBMPlexSansThai-Medium.ttf",
+				Info.plist,
+			);
+			target = F45D3C3E2E9011CB0074D25E /* plantodoTests */;
+		};
+		F4466DF02EA20E3A009A6B99 /* Exceptions for "plantodo" folder in "plantodoUITests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				App/AppIcons/appstore.png,
+				App/AppIcons/Assets.xcassets,
+				App/AppIcons/playstore.png,
+				"Fonts/IBMPlexSansThai-Bold.ttf",
+				"Fonts/IBMPlexSansThai-ExtraLight.ttf",
+				"Fonts/IBMPlexSansThai-Light.ttf",
+				"Fonts/IBMPlexSansThai-Medium.ttf",
+				Info.plist,
+			);
+			target = F45D3C482E9011CB0074D25E /* plantodoUITests */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		F45D3C302E9011C70074D25E /* plantodo */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				F4466DEF2EA20E3A009A6B99 /* Exceptions for "plantodo" folder in "plantodoTests" target */,
+				F4466DF02EA20E3A009A6B99 /* Exceptions for "plantodo" folder in "plantodoUITests" target */,
+			);
 			path = plantodo;
 			sourceTree = "<group>";
 		};
@@ -89,7 +124,6 @@
 			buildPhases = (
 				F45D3C2A2E9011C70074D25E /* Sources */,
 				F45D3C2B2E9011C70074D25E /* Frameworks */,
-				F45D3C2C2E9011C70074D25E /* Resources */,
 			);
 			buildRules = (
 			);
@@ -190,13 +224,6 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		F45D3C2C2E9011C70074D25E /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		F45D3C3D2E9011CB0074D25E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -378,6 +405,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = plantodo/Info.plist;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -417,6 +445,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = plantodo/Info.plist;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;

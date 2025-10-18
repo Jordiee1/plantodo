@@ -16,6 +16,7 @@
 import SwiftUI
 
 struct ProjectCategoryButton: View {
+    @Environment(\.customBodyFont) var bodyFont
     let icon: String
     let label: String
     let color: Color
@@ -39,6 +40,7 @@ struct ProjectCategoryButton: View {
                     .font(.caption)
                     .foregroundColor(isSelected ? color : .gray)
                     .fontWeight(isSelected ? .semibold : .regular)
+                    .font(bodyFont)
             }
         }
         .buttonStyle(PlainButtonStyle())

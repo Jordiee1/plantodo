@@ -1,12 +1,17 @@
 //
-//  Category.swift
-//  plantodo
+//  Category.swift
+//  plantodo
 //
-//  Created by จิดาภา สีเพชร on 3/10/2568 BE.
-//
-
 
 import SwiftUI
+
+extension Color {
+    // Helper สำหรับ Category Colors
+    static let colorGeneral = Color(hex: "#635BFF")
+    static let colorWork = Color(hex: "#FFC700")
+    static let colorPersonal = Color(hex: "#B2EBF2")
+    static let colorHealth = Color(hex: "#EF5350")
+}
 
 enum Category: String, Codable, CaseIterable, Identifiable {
     case general = "ทั่วไป"
@@ -15,18 +20,19 @@ enum Category: String, Codable, CaseIterable, Identifiable {
     case health = "สุขภาพ"
     case shopping = "ช้อปปิ้ง"
     case study = "การเรียน"
-    case other = "อื่น ๆ"   // ✅ เพิ่ม case นี้
+    case other = "อื่น ๆ"
 
     var id: String { self.rawValue }
     
     var color: Color {
         switch self {
-        case .general: return Color(red: 0.8, green: 0.8, blue: 1.0)
-        case .work: return Color(red: 1.0, green: 0.8, blue: 0.8)
-        case .personal: return Color(red: 1.0, green: 0.95, blue: 0.8)
-        case .health: return Color(red: 0.8, green: 1.0, blue: 0.9)
-        case .shopping: return Color(red: 1.0, green: 0.9, blue: 1.0)
-        case .study: return Color(red: 0.9, green: 0.95, blue: 1.0)
+        // ✅ FIX: ใช้สีพื้นฐานที่คำนวณแล้ว (เพื่อลด Chained Modifiers)
+        case .general: return Color.colorGeneral
+        case .work: return Color.colorWork
+        case .personal: return Color.colorPersonal
+        case .health: return Color.colorHealth
+        case .shopping: return Color.purple
+        case .study: return Color.blue
         case .other: return .gray
         }
     }

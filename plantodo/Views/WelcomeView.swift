@@ -8,13 +8,19 @@
 import SwiftUI
 
 struct WelcomeView: View {
-    @State private var userName: String = ""
+    @ObservedObject var viewModel: TodoViewModel
+    
+    // ✅ กำหนดชื่อฟอนต์ที่ใช้
+    private let regularFontName = "IBMPlexSansThai-Regular"
+    private let boldFontName = "IBMPlexSansThai-Bold"
+    
+    @State private var tempUserName: String = "" // ใช้ State ชั่วคราวในการกรอกชื่อ
     @State private var isAnimating = false
-    @Binding var hasCompletedWelcome: Bool
+    @AppStorage("hasCompletedWelcome") var hasCompletedWelcome: Bool = false
     
     var body: some View {
         ZStack {
-            Color(red: 1.0, green: 0.96, blue: 0.97)
+            Color.primaryBackground // ✅ สีพื้นหลังใหม่
                 .ignoresSafeArea()
             
             VStack(spacing: 25) {
@@ -25,24 +31,25 @@ struct WelcomeView: View {
                     .animation(.spring(response: 0.6, dampingFraction: 0.6), value: isAnimating)
                 
                 Text("ยินดีต้อนรับ!")
-                    .font(.system(size: 32, weight: .bold))
-                    .foregroundColor(Color(red: 1.0, green: 0.42, blue: 0.62))
+                    .font(.custom(boldFontName, size: 32)) // ✅ Custom Font
+                    .foregroundColor(.accentColor)
                     .opacity(isAnimating ? 1 : 0)
                     .animation(.easeIn(duration: 0.8).delay(0.2), value: isAnimating)
                 
                 Text("กรุณาบอกชื่อของคุณ")
-                    .font(.system(size: 16))
+                    .font(.custom(regularFontName, size: 16)) // ✅ Custom Font
                     .foregroundColor(.gray)
                     .opacity(isAnimating ? 1 : 0)
                     .animation(.easeIn(duration: 0.8).delay(0.3), value: isAnimating)
                 
-                TextField("ชื่อของคุณ...", text: $userName)
+                TextField("ชื่อของคุณ...", text: $tempUserName)
+                    .font(.custom(regularFontName, size: 16)) // ✅ Custom Font
                     .padding()
-                    .background(Color(red: 1.0, green: 0.96, blue: 0.97))
+                    .background(Color.secondaryBackground) // ✅ สี Card/Input
                     .cornerRadius(15)
                     .overlay(
                         RoundedRectangle(cornerRadius: 15)
-                            .stroke(Color(red: 1.0, green: 0.84, blue: 0.91), lineWidth: 2)
+                            .stroke(Color.accentColor.opacity(0.3), lineWidth: 2)
                     )
                     .padding(.horizontal, 40)
                     .opacity(isAnimating ? 1 : 0)
@@ -50,46 +57,40 @@ struct WelcomeView: View {
                     .animation(.easeOut(duration: 0.8).delay(0.4), value: isAnimating)
                 
                 Button(action: {
-                    if !userName.trimmingCharacters(in: .whitespaces).isEmpty {
-                        UserDefaults.standard.set(userName, forKey: "userName")
-                        UserDefaults.standard.set(true, forKey: "hasCompletedWelcome")
-                        withAnimation {
-                            hasCompletedWelcome = true
-                        }
+                    let trimmedName = tempUserName.trimmingCharacters(in: .whitespaces)
+                    if !trimmedName.isEmpty && trimmedName.lowercased() != "ผู้ใช้" {
+                        viewModel.saveUserName(trimmedName) // บันทึกชื่อผ่าน ViewModel
+                        hasCompletedWelcome = true // เปลี่ยนสถานะ AppStorage เพื่อเปลี่ยนหน้า
                     }
                 }) {
                     Text("เริ่มต้นใช้งาน")
-                        .font(.system(size: 18, weight: .bold))
+                        .font(.custom(boldFontName, size: 18)) // ✅ Custom Font
                         .foregroundColor(.white)
                         .frame(maxWidth: .infinity)
                         .padding()
                         .background(
-                            userName.trimmingCharacters(in: .whitespaces).isEmpty ?
-                            Color.gray : Color(red: 1.0, green: 0.42, blue: 0.62)
+                            tempUserName.trimmingCharacters(in: .whitespaces).isEmpty ?
+                            Color.gray : Color.accentColor // ✅ Accent Color
                         )
                         .cornerRadius(15)
-                        .shadow(color: Color(red: 1.0, green: 0.42, blue: 0.62).opacity(0.3), radius: 8, x: 0, y: 4)
+                        .shadow(color: Color.accentColor.opacity(0.3), radius: 8, x: 0, y: 4)
                 }
-                .disabled(userName.trimmingCharacters(in: .whitespaces).isEmpty)
+                .disabled(tempUserName.trimmingCharacters(in: .whitespaces).isEmpty)
                 .padding(.horizontal, 40)
                 .opacity(isAnimating ? 1 : 0)
                 .offset(y: isAnimating ? 0 : 20)
                 .animation(.easeOut(duration: 0.8).delay(0.5), value: isAnimating)
             }
             .padding()
-            .background(Color.white)
+            .background(Color.secondaryBackground) // ✅ สี Card
             .cornerRadius(30)
-            .shadow(color: Color(red: 1.0, green: 0.42, blue: 0.62).opacity(0.15), radius: 20, x: 0, y: 10)
+            .shadow(color: Color.accentColor.opacity(0.15), radius: 20, x: 0, y: 10)
             .padding(.horizontal, 30)
         }
         .onAppear {
             isAnimating = true
-            if let savedName = UserDefaults.standard.string(forKey: "userName") {
-                userName = savedName
-            }
-            if UserDefaults.standard.bool(forKey: "hasCompletedWelcome") {
-                hasCompletedWelcome = true
-            }
+            // โหลดชื่อผู้ใช้ที่บันทึกไว้ใน ViewModel มาแสดง (ถ้ามี)
+            tempUserName = viewModel.userName
         }
     }
 }

@@ -1,8 +1,8 @@
 //
-//  ProjectItem.swift
-//  plantodo
+//  ProjectItem.swift
+//  plantodo
 //
-//  Created for Team Project Feature
+//  Created for Team Project Feature
 //
 
 import Foundation
@@ -11,7 +11,7 @@ struct ProjectItem: Identifiable, Codable {
     let id: UUID
     var title: String
     var description: String?
-    var date: Date
+    var deadline: Date
     var startTime: Date?
     var endTime: Date?
     var location: String?
@@ -19,12 +19,13 @@ struct ProjectItem: Identifiable, Codable {
     var tasks: [ProjectTask]
     var category: Category
     var color: String
+    var imageURL: String? // ✅ เพิ่ม Image URL
     
-    init(id: UUID = UUID(), title: String, description: String? = nil, date: Date = Date(), startTime: Date? = nil, endTime: Date? = nil, location: String? = nil, teamMembers: [String] = [], tasks: [ProjectTask] = [], category: Category = .work, color: String = "blue") {
+    init(id: UUID = UUID(), title: String, description: String? = nil, deadline: Date = Date(), startTime: Date? = nil, endTime: Date? = nil, location: String? = nil, teamMembers: [String] = [], tasks: [ProjectTask] = [], category: Category = .work, color: String = "blue", imageURL: String? = nil) {
         self.id = id
         self.title = title
         self.description = description
-        self.date = date
+        self.deadline = deadline
         self.startTime = startTime
         self.endTime = endTime
         self.location = location
@@ -32,6 +33,7 @@ struct ProjectItem: Identifiable, Codable {
         self.tasks = tasks
         self.category = category
         self.color = color
+        self.imageURL = imageURL // ✅ กำหนดค่า Image URL
     }
     
     var completionPercentage: Double {
@@ -49,6 +51,7 @@ struct ProjectItem: Identifiable, Codable {
     }
 }
 
+// ProjectTask ไม่มีการเปลี่ยนแปลง
 struct ProjectTask: Identifiable, Codable, Equatable {
     let id: UUID
     var title: String
